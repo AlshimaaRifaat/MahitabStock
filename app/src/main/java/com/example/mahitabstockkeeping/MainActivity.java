@@ -3,6 +3,7 @@ package com.example.mahitabstockkeeping;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
@@ -30,7 +31,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity /*implements ProductAdapter.ProductClickListener*/ {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "SearchResultActivity";
     SelectedOptions selectedOptions;
     private MenuItem searchMenuItem = null;
@@ -78,7 +79,6 @@ public class MainActivity extends AppCompatActivity /*implements ProductAdapter.
 
 
     selectedOptions = new SelectedOptions();
-    getAllProductsList();
     setupFloatingSearch();
 
 
@@ -277,10 +277,7 @@ public class MainActivity extends AppCompatActivity /*implements ProductAdapter.
         mSearchView = findViewById(R.id.floating_search_view);
     }
 
-    private void getAllProductsList() {
 
-
-    }
 
     private void getSearchResult() {
         DataManager.getInstance().setClientManager(this);
@@ -303,9 +300,8 @@ public class MainActivity extends AppCompatActivity /*implements ProductAdapter.
 
         searchResultList=DataManager.getInstance().getAllProducts();
         productAdapter = new ProductAdapter(MainActivity.this, searchResultList);
-        //productAdapter.setProductClickListener(SearchResultActivity.this::onProductClick);
         selectedOptions.addObserver(productAdapter);
-        rvProducts.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
+        rvProducts.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.VERTICAL,false));
         rvProducts.setHasFixedSize(true);
         rvProducts.setAdapter(productAdapter);
 
@@ -313,10 +309,5 @@ public class MainActivity extends AppCompatActivity /*implements ProductAdapter.
     }
 
 
-  /*  @Override
-    public void onProductClick(String productId) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.putExtra("productId", productId);
-        startActivity(intent);
-    }*/
+
 }

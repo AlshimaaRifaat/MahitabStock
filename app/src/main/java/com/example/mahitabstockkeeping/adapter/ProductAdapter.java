@@ -97,7 +97,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public int getItemCount() {
-        return productsDataList.size();
+        if(productsDataList.size()!=0)
+        {
+            if(productsDataList.size()>1)
+            return 1;
+            return productsDataList.size();
+        }
+        return 0;
+
     }
 
     public void updateList() {
